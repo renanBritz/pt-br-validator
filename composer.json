@@ -1,5 +1,5 @@
 {
-    "name": "laravellegends/pt-br-validator",
+    "name": "renan-britz/pt-br-validator",
     "description": "Uma biblioteca contendo validações de formatos Brasileiros, para o Laravel 5",
     "license" : "MIT",
     "authors": [

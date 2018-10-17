@@ -6,14 +6,12 @@ use Illuminate\Support\ServiceProvider;
 
 class ValidatorProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
      */
     protected $defer = false;
-
     
     /**
      * Bootstrap the application events.
@@ -23,10 +21,15 @@ class ValidatorProvider extends ServiceProvider
      
     public function boot()
     {
+        $this->loadTranslationsFrom(__DIR__ . '/Resources/', 'br_validations');
+
+        $this->publishes([
+            __DIR__ . '/Resources/' => resource_path('lang/br_validations'),
+        ]);
 
         $me = $this;
 
-        $this->app['validator']->resolver(function ($translator, $data, $rules, $messages, $customAttributes) use($me)
+        $this->app['validator']->resolver(function ($translator, $data, $rules, $messages, $customAttributes) use ($me)
         {
             $messages += $me->getMessages();
             
@@ -38,18 +41,14 @@ class ValidatorProvider extends ServiceProvider
     protected function getMessages()
     {
         return [        
-            'celular'          => 'O campo :attribute não é um celular válido',
-            'celular_com_ddd'  => 'O campo :attribute não é um celular com DDD válido',
-            'cnh'              => 'O campo :attribute não é uma carteira nacional de habilitação válida',
-            'cnpj'             => 'O campo :attribute não é um CNPJ válido',
-            'cpf'              => 'O campo :attribute não é um CPF válido',
-            'data'             => 'O campo :attribute não é uma data com formato válido',
-            'formato_cnpj'     => 'O campo :attribute não possui o formato válido de CNPJ',
-            'formato_cpf'      => 'O campo :attribute não possui o formato válido de CPF',
-            'telefone'         => 'O campo :attribute não é um telefone válido',
-            'telefone_com_ddd' => 'O campo :attribute não é um telefone com DDD válido',
-            'formato_cep'      => 'O campo :attribute não possui um formato válido de CEP',
-            'formato_placa_de_veiculo'   => 'O campo :attribute não possui um formato válido de placa',
+            'cnh'                   => trans('br_validations.cnh'),
+            'cnpj'                  => trans('br_validations.cnpj'),
+            'cpf'                   => trans('br_validations.cpf'),
+            'formato_cnpj'          => trans('br_validations.formato_cnpj'),
+            'formato_cpf'           => trans('br_validations.formato_cpf'),
+            'telefone'              => trans('br_validations.telefone'),
+            'formato_cep'           => trans('br_validations.formato_cep'),
+            'formato_placa_veiculo' => trans('br_validations.formato_placa_veiculo'),
         ];
     }
 
@@ -58,7 +57,10 @@ class ValidatorProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register(){}
+    public function register()
+    {
+        //
+    }
 
     /**
      * Get the services provided by the provider.
@@ -67,7 +69,7 @@ class ValidatorProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array();
+        return [];
     }
 
 }

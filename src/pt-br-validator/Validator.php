@@ -8,55 +8,13 @@ use Illuminate\Validation\Validator as BaseValidator;
 * This class is part of PHPLegends package
 *
 * @author Wallace de Souza Vizerra <wallacemaxters@gmail.com>
-* @author Guilherme Nascimento 
+* @author Guilherme Nascimento
 */
-
 class Validator extends BaseValidator
 {
-    /**
-    * Valida o formato do celular junto com o ddd
-    * @param string $attribute
-    * @param string $value
-    * @return boolean
-    */
-    protected function validateCelularComDdd($attribute, $value)
-    {
-        return preg_match('/^\(\d{2}\)\s?\d{4,5}-\d{4}$/', $value) > 0;
-    }
- 
-    /**
-    * Valida o formato do telefone junto com o ddd
-    * @param string $attribute
-    * @param string $value
-    * @return boolean
-    */
-
-    protected function validateTelefoneComDdd($attribute, $value)
-    {
-        return preg_match('/^\(\d{2}\)\s?\d{4}-\d{4}$/', $value) > 0;
-    }
-
-
-    /**
-    * Valida o formato do celular
-    * @param string $attribute
-    * @param string $value
-    * @return boolean
-    */
-    protected function validateCelular($attribute, $value)
-    {
-        return preg_match('/^\d{4,5}-\d{4}$/', $value) > 0;   
-    }
-
-    /**
-    * Valida o formato do telefone
-    * @param string $attribute
-    * @param string $value
-    * @return boolean
-    */
     protected function validateTelefone($attribute, $value)
     {
-        return preg_match('/^\d{4}-\d{4}$/', $value) > 0;
+        return preg_match('/^\(\d{2}\)\s?\d{8,9}$/', $value) > 0;
     }
 
     /**
@@ -87,7 +45,6 @@ class Validator extends BaseValidator
     * @param string $value
     * @return boolean
     */
-
     protected function validateCpf($attribute, $value)
     {
         $c = preg_replace('/\D/', '', $value);
@@ -133,7 +90,6 @@ class Validator extends BaseValidator
         // https://github.com/LaravelLegends/pt-br-validator/issues/4
 
         elseif (preg_match("/^{$c[0]}{14}$/", $c) > 0) {
-
             return false;
         }
 
@@ -195,23 +151,6 @@ class Validator extends BaseValidator
         return $ret;
     }
 
-
-    /**
-    * Valida se o data está no formato 31/12/1969
-    * @param string $attribute
-    * @param string $value
-    * @return boolean
-    */
-
-    public function validateData($attribute, $value)
-    {
-        $regex = '/^(0[1-9]|[1-2][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/';
-
-        return preg_match($regex, $value) > 0;
-    }
-
-
-
     /**
      * Valida se o formato de CEP está correto
      *
@@ -220,7 +159,7 @@ class Validator extends BaseValidator
      * @return boolean
     */
 
-    public function validateFormatoCep($attribute, $value) 
+    public function validateCep($attribute, $value)
     {
         return preg_match('/^\d{2}\.?\d{3}-\d{3}$/', $value) > 0;
     }
@@ -233,9 +172,8 @@ class Validator extends BaseValidator
      * @return boolean
      */
 
-    public function validateFormatoPlacaDeVeiculo($attribute, $value)
+    public function validatePlacaVeiculo($attribute, $value)
     {
         return preg_match('/^[a-zA-Z]{3}\-?[0-9]{4}$/', $value) > 0;
     }
-
 }
