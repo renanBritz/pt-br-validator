@@ -8,9 +8,6 @@
             "email": "wallacemaxters@gmail.com"
         }
     ],
-    "require": {
-        "illuminate/support": "5.0.* || 5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*"
-    },
     "autoload": {
         "psr-4": {
             "LaravelLegends\\PtBrValidator\\": "src/pt-br-validator"
